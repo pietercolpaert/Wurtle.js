@@ -38,7 +38,16 @@ Quads that are not in any group will be emitted in their own group and will be e
 
 ### GroupedStreamParser
 
+```javascript
+import {GroupedStreamParser} from 'wurtle';
+const parser = new GroupedStreamParser(),
+      rdfStream = fs.createReadStream('cartoons.ttl');
 
+const parsedStream = rdfStream.pipe(parser);
+parsedStream.on('data', (groupedQuads) => {
+    console.dir(groupedQuads);
+});
+```
 
 ### GroupedSerializer
 
