@@ -49,6 +49,6 @@
     "jest": "^29.7.0"
   },
   "dependencies": {
-    "n3": "https://github.com/pietercolpaert/N3.js.git#feature-comments"
+    "n3": "^1.21.0"
   }
 }
