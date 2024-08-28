@@ -36,7 +36,27 @@ Quads that are not in any group will be emitted in their own group and will be e
 
 ## Utilities
 
+### GroupedParser
+
+The grouped parser follows the same pattern as the [N3.js Parser documentation](https://github.com/rdfjs/N3.js/tree/main?tab=readme-ov-file#parsing).
+For example:
+
+```javascript
+import {GroupedParser} from 'wurtle';
+const parser = new GroupedParser(),
+      rdfStream = fs.createReadStream('cartoons.ttl');
+
+parser.parse(rdfStream, (error, groupedQuads) => {
+    if (!error)
+        console.dir(groupedQuads);
+});
+```
+
+The parser will callback groupedQuads from the moment and end group is found. Unclosed groups are emitted at the end of the file.
+
 ### GroupedStreamParser
+
+Similar as the Parser, but now using NodeJS streams.
 
 ```javascript
 import {GroupedStreamParser} from 'wurtle';
@@ -49,7 +69,6 @@ parsedStream.on('data', (groupedQuads) => {
 });
 ```
 
-### GroupedSerializer
+### GroupedWriter
 
 _TODO_
-

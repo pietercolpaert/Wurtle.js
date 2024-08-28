@@ -36,8 +36,13 @@ describe('GroupedStreamParser', () => {
     );
 
     it(
-      'parses three triples in two groups',
+      'parses three triples in two named groups',
       shouldParseInGroups(['# @group begin 1\n <a> <b> <c>. \n# @group end 1\n# @group begin 2\n <d> <e> <f>.<g> <h> <i> . \n# @group end 2\n'], 2),
+    );
+
+    it(
+      'parses three triples in two unnamed groups',
+      shouldParseInGroups(['# @group begin \n <a> <b> <c>. \n# @group end \n# @group begin \n<d> <e> <f>.<g> <h> <i> . # @group end \n'], 2),
     );
 
     it(
@@ -86,18 +91,18 @@ describe('GroupedStreamParser', () => {
 });
 
 
-function shouldParseInGroups(chunks, expectedLength, validateTriples) {
+function shouldParseInGroups(chunks, expectedLength, validateGroups) {
   return function (done) {
-    const triples = [],
+    const groups = [],
         inputStream = new ArrayReader(chunks),
         parser = new GroupedStreamParser(),
-        outputStream = new ArrayWriter(triples);
+        outputStream = new ArrayWriter(groups);
     expect(parser.import(inputStream)).toBe(parser);
     parser.pipe(outputStream);
     parser.on('error', done);
     parser.on('end', () => {
-      expect(triples).toHaveLength(expectedLength);
-      if (validateTriples) validateTriples(triples);
+      expect(groups).toHaveLength(expectedLength);
+      if (validateGroups) validateGroups(groups);
       done();
     });
   };

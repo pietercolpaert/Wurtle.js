@@ -196,7 +196,7 @@ declare module 'n3' {
 
     export type PrefixCallback = (prefix: string, prefixNode: RDF.NamedNode) => void;
 
-    export type CommentCallback = (comment: string) => void;
+    export type CommentCallback = Function;
 
     export type ParserCallbacks = {
         onQuad?: ParseCallback,

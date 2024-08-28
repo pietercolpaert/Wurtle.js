@@ -3,9 +3,9 @@ import { Transform } from 'readable-stream';
 import { ParserOptions, Quad} from 'n3';
 import { EventEmitter } from "events";
 import { NamedNode } from '@rdfjs/types';
-import N3GroupedParser from './N3GroupedParser';
+import GroupedParser from './N3GroupedParser';
 
-export default class N3GroupedStreamParser extends Transform {
+export default class GroupedStreamParser extends Transform {
   constructor(options: ParserOptions) {
     super({ decodeStrings: true });
     this._readableState.objectMode = true;
@@ -13,7 +13,7 @@ export default class N3GroupedStreamParser extends Transform {
       options = {};
     options.comments = true;
     // Set up parser with dummy stream to obtain `data` and `end` callbacks
-    const parser = new N3GroupedParser(options);
+    const parser = new GroupedParser(options);
     let onData: Function;
     let onEnd: Function;
     let input = new EventEmitter();
