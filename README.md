@@ -71,6 +71,8 @@ parsedStream.on('data', (groupedQuads) => {
 
 ### GroupedWriter
 
+This supports writing out groups of quads. The writer does not support nesting or overlapping groups.
+
 Options of the GrouperWriter is the same options as the [N3.Writer](https://github.com/rdfjs/N3.js/tree/main?tab=readme-ov-file#writing)
 
 ```javascript
