@@ -3,7 +3,7 @@ declare module 'n3' {
     import * as RDF from "@rdfjs/types";
     import { EventEmitter } from "events";
     import * as stream from "stream";
-
+    import { Writable } from "readable-stream";
     export interface Prefixes<I = RDF.NamedNode> {
         [key: string]: I;
     }
@@ -227,6 +227,7 @@ declare module 'n3' {
     }
 
     export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
+        public _outputStream: Writable;
         constructor(options?: WriterOptions);
         constructor(fd: any, options?: WriterOptions);
         quadToString(subject: Q["subject"], predicate: Q["predicate"], object: Q["object"], graph?: Q["graph"]): string;
@@ -238,7 +239,7 @@ declare module 'n3' {
             graph?: Q["graph"],
             done?: () => void,
         ): void;
-        addQuad(quad: RDF.Quad): void;
+        addQuad(quad: RDF.Quad, done?: Function): void;
         addQuads(quads: RDF.Quad[]): void;
         addPrefix(prefix: string, iri: RDF.NamedNode | string, done?: () => void): void;
         addPrefixes(prefixes: Prefixes<RDF.NamedNode | string>, done?: () => void): void;

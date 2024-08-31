@@ -71,4 +71,14 @@ parsedStream.on('data', (groupedQuads) => {
 
 ### GroupedWriter
 
-_TODO_
+Options of the GrouperWriter is the same options as the [N3.Writer](https://github.com/rdfjs/N3.js/tree/main?tab=readme-ov-file#writing)
+
+```javascript
+import {GroupedWriter} from 'wurtle';
+const writer = new GroupedWriter(options);
+writer.addGroupedQuads(quadGroup0);
+writer.addGroupedQuads(quadGroup1);
+writer.end((error, result) => {
+    console.log(result);
+});
+```
